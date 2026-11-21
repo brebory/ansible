@@ -1,0 +1,26 @@
+; Engine configuration file.
+; Configured for Godot 4 Compatibility renderer (WebGL 2.0 / Mobile GLES3)
+
+config_version=5
+
+[application]
+
+config/name="Ansible — Frontier Battle Prototype"
+config/description="Neon Spaghetti Western space-outpost turn-based combat vertical slice"
+run/main_scene="res://scenes/BattleArena.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.05, 0.03, 0.09, 1)

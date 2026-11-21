@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "godot-runtime": {
+      "command": "npx",
+      "args": ["-y", "godot-mcp-runtime"],
+      "env": {
+        "GODOT_MCP_DISABLE_ELICITATION": "true"
+      }
+    }
+  }
+}
