@@ -17,9 +17,9 @@ All major feature areas of Ansible are charted as Wayfinder Maps on GitHub Issue
 
 | Ticket | Type | Frontier / Dependencies |
 | :--- | :--- | :--- |
-| [[Grilling] Combat turn order model, action economy, and squad size](https://github.com/snackpackgames/ansible/issues/7) (`#7`) | `wayfinder:grilling` | **Frontier (unblocked)** |
-| [[Grilling] Drifter battle classes, skill kits, and status/trigger taxonomy](https://github.com/snackpackgames/ansible/issues/8) (`#8`) | `wayfinder:grilling` | Blocked by [#7](https://github.com/snackpackgames/ansible/issues/7) |
-| [[Prototype] PS1-era Final Fantasy cinematic battle camera choreography](https://github.com/snackpackgames/ansible/issues/9) (`#9`) | `wayfinder:prototype` | Blocked by [#7](https://github.com/snackpackgames/ansible/issues/7) |
+| [[Grilling] Combat turn order model, action economy, and squad size](https://github.com/snackpackgames/ansible/issues/7) (`#7`) | `wayfinder:grilling` | **Resolved** ([0007 resolution](resolutions/0007-combat-turn-order-action-economy-squad-size.md)) |
+| [[Grilling] Drifter battle classes, skill kits, and status/trigger taxonomy](https://github.com/snackpackgames/ansible/issues/8) (`#8`) | `wayfinder:grilling` | **Frontier (unblocked)** |
+| [[Prototype] PS1-era Final Fantasy cinematic battle camera choreography](https://github.com/snackpackgames/ansible/issues/9) (`#9`) | `wayfinder:prototype` | **Frontier (unblocked)** |
 | [[Grilling] Enemy factions, AI intent policies, retreat, and battle reward rules](https://github.com/snackpackgames/ansible/issues/10) (`#10`) | `wayfinder:grilling` | Blocked by [#8](https://github.com/snackpackgames/ansible/issues/8) |
 
 ## [Map: Drifters, Roster & Low-Poly 3D Recolorable Character Pipeline](https://github.com/snackpackgames/ansible/issues/11) (`#11`)
