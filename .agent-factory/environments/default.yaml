@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/snackpackgames/agent-factory/main/schemas/environment.schema.json
+apiVersion: agent-factory/v1
+kind: Environment
+metadata:
+  name: default
+
+sandbox:
+  type: remote
+  sources:
+    - type: repository
+      source: https://github.com/snackpackgames/ansible
+      target: /workspace/repo
+  env:
+    GIT_AUTHOR_NAME: Ansible Nightly Agent
+    GIT_AUTHOR_EMAIL: ansible-agent@snackpackgames.local
+    GIT_COMMITTER_NAME: Ansible Nightly Agent
+    GIT_COMMITTER_EMAIL: ansible-agent@snackpackgames.local
+  network:
+    allowlist:
+      - domain: api.github.com
+        credential: github-ansible-pat
+      - domain: github.com
+        credential: github-ansible-pat
+      - domain: "*"

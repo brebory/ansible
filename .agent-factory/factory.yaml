@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/snackpackgames/agent-factory/main/schemas/factory.schema.json
+apiVersion: agent-factory/v1
+kind: Factory
+metadata:
+  name: ansible
+  repo: snackpackgames/ansible
+  default_branch: master
+
+provider:
+  type: gemini-triggers
+  agent: antigravity-preview-09-2026
+
+defaults:
+  time_zone: America/Los_Angeles
+  model: gemini-3.8-flash
+  max_total_tokens: 500000
+  execution_timeout_seconds: 1800
+  max_consecutive_failures: 3
+  environment: default
+
+templates:
+  home: https://raw.githubusercontent.com/brebory/home/main/templates/antigravity-triggers
+
+credentials:
+  - id: github-ansible-pat
+    type: bearer_token
+    description: Fine-grained GitHub PAT scoped to snackpackgames/ansible (Contents, Issues, Pull requests R/W)

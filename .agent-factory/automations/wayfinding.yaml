@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/snackpackgames/agent-factory/main/schemas/automation.schema.json
+apiVersion: agent-factory/v1
+kind: Automation
+metadata:
+  name: wayfinding
+  description: Advance one open, unblocked wayfinder grilling/prototype/research ticket per night
+
+enabled: true
+schedule: "0 1 * * *"
+environment: default
+
+runtime:
+  model: gemini-3.5-flash-lite
+  max_total_tokens: 400000
+  execution_timeout_seconds: 1200
+
+prompt:
+  template: home://prompts/wayfinding-routine.template.md
+  vars:
+    PROJECT_NAME: Ansible
+    REPO: snackpackgames/ansible
+    DEFAULT_BRANCH: master
+    WORKSPACE_DIR: /workspace/repo
+    CONTEXT_FILE: AGENTS.md
+    TEST_CMD: bash scripts/test.sh
+    EXTRA_RULES: |
+      ## Ansible-Specific Guardrails
+
+      - Check `CONTEXT.md` and `documentation/wayfinder/maps-index.md` for canonical terminology and existing map structure.
+      - Never create nested git worktrees inside `/workspace/repo` (Godot recursively scans subdirectories).
+      - If a `wayfinder:research` resolution establishes canonical game rules or architecture, check whether `documentation/wayfinder/resolutions/` should also be updated via PR.

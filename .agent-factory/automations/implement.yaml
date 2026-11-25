@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/snackpackgames/agent-factory/main/schemas/automation.schema.json
+apiVersion: agent-factory/v1
+kind: Automation
+metadata:
+  name: implement
+  description: Implement the oldest unblocked ready-for-agent issue and open a PR
+
+# Paused until the first Wayfinder map is handed off with ready-for-agent issues.
+# Flip to `true` and merge to master to activate nightly implementation runs.
+enabled: false
+schedule: "0 2 * * *"
+environment: default
+
+runtime:
+  model: gemini-3.8-flash
+  max_total_tokens: 500000
+  execution_timeout_seconds: 1800
+
+prompt:
+  template: home://prompts/implement-routine.template.md
+  vars:
+    PROJECT_NAME: Ansible
+    REPO: snackpackgames/ansible
+    DEFAULT_BRANCH: master
+    WORKSPACE_DIR: /workspace/repo
+    CONTEXT_FILE: AGENTS.md
+    TEST_CMD: bash scripts/test.sh
+    EXTRA_RULES: |
+      ## Ansible-Specific Guardrails
+
+      - Read `CONTEXT.md` and `documentation/adr/0001-godot-nakama-rust-wasm-stack.md` before changing combat simulation, server RPCs, or Godot client architecture.
+      - Keep the `sim-core/` Rust simulation deterministic and rebuild WASM (`bash scripts/build_wasm.sh`) whenever `sim-core/` changes so `server/` stays in sync.
+      - Never create nested git worktrees inside `/workspace/repo` (Godot recursively scans subdirectories).
+      - Include a concise summary, test output (noting clearly if Godot headless binary is unavailable in the sandbox), and `Closes #<n>` in the PR body.

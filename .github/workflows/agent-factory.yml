@@ -1,0 +1,75 @@
+name: Agent Factory
+
+on:
+  pull_request:
+    paths:
+      - ".agent-factory/**"
+      - ".github/workflows/agent-factory.yml"
+  push:
+    branches: [master]
+    paths:
+      - ".agent-factory/**"
+  workflow_dispatch:
+    inputs:
+      command:
+        description: "Command to execute"
+        type: choice
+        default: plan
+        options: [validate, plan, apply, status, run]
+      automation:
+        description: "Automation name (only when command=run)"
+        type: string
+        required: false
+      prune:
+        description: "Delete orphaned triggers owned by this factory"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: snackpackgames/agent-factory@main
+        with:
+          command: validate
+
+  plan:
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: snackpackgames/agent-factory@main
+        with:
+          command: plan
+          comment_pr: "true"
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+
+  apply:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: snackpackgames/agent-factory@main
+        with:
+          command: apply
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+
+  manual:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: snackpackgames/agent-factory@main
+        with:
+          command: ${{ inputs.command }}
+          automation: ${{ inputs.automation }}
+          prune: ${{ inputs.prune }}
+          comment_pr: "false"
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
